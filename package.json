@@ -1,0 +1,35 @@
+{
+    "name": "tenthousand-task",
+    "private": true,
+    "workspaces": [
+        "client",
+        "server"
+    ],
+    "scripts": {
+        "dev:client": "npm run dev --workspace=client",
+        "dev:server": "npm run dev --workspace=server",
+        "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+        "format": "prettier --write .",
+        "prepare": "husky"
+    },
+    "devDependencies": {
+        "@graphql-codegen/typescript": "^5.0.9",
+        "@graphql-codegen/typescript-operations": "^5.0.9",
+        "@graphql-codegen/typescript-rtk-query": "^4.0.0",
+        "concurrently": "^9.2.1",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.4.0",
+        "prettier": "^3.8.1"
+    },
+    "dependencies": {
+        "@graphql-codegen/cli": "^6.2.1",
+        "@graphql-typed-document-node/core": "^3.2.0",
+        "@reduxjs/toolkit": "^2.11.2",
+        "@rtk-query/codegen-openapi": "^2.2.0",
+        "@rtk-query/graphql-request-base-query": "^2.3.2",
+        "graphql": "^16.13.1",
+        "graphql-request": "^7.4.0",
+        "react": "^19.2.4",
+        "react-redux": "^9.2.0"
+    }
+}
