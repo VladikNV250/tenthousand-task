@@ -47,6 +47,16 @@ export const resolvers: Resolvers = {
                 throw new Error(`Question does not belong to form: ${invalidAnswer.questionId}`)
             }
 
+            const answeredQuestionIds = new Set(inputAnswers.map((a) => a.questionId))
+            const missingRequiredQuestion = form.questions.find(
+                (q) => q.required && !answeredQuestionIds.has(q.id),
+            )
+            if (missingRequiredQuestion) {
+                throw new Error(
+                    `Missing required answer for question: ${missingRequiredQuestion.id}`,
+                )
+            }
+
             const answersWithIds = inputAnswers.map((a) => ({
                 id: randomUUID(),
                 questionId: a.questionId,
