@@ -35,7 +35,17 @@ export const resolvers: Resolvers = {
             return newForm
         },
         submitResponse: (_, args) => {
+            const form = formStore.getById(args.formId)
+            if (!form) {
+                throw new Error(`Form not found: ${args.formId}`)
+            }
+
             const inputAnswers = args.answers || []
+            const validQuestionIds = new Set(form.questions.map((q) => q.id))
+            const invalidAnswer = inputAnswers.find((a) => !validQuestionIds.has(a.questionId))
+            if (invalidAnswer) {
+                throw new Error(`Question does not belong to form: ${invalidAnswer.questionId}`)
+            }
 
             const answersWithIds = inputAnswers.map((a) => ({
                 id: randomUUID(),
