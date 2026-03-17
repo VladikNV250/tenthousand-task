@@ -18,6 +18,9 @@ class InMemoryStore<T extends Entity> {
 
     create(item: Omit<T, 'id'> & { id?: string }): T {
         const id = item.id ?? randomUUID()
+        if (this.items.has(id)) {
+            throw new Error(`Entity with id "${id}" already exists`)
+        }
         const newItem = { ...item, id } as unknown as T
         this.items.set(id, newItem)
         return newItem
