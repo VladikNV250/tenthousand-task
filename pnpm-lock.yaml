@@ -208,6 +208,15 @@ importers:
                 specifier: ^16.13.1
                 version: 16.13.1
         devDependencies:
+            '@graphql-codegen/cli':
+                specifier: ^6.2.1
+                version: 6.2.1(@types/node@25.5.0)(graphql@16.13.1)(typescript@5.9.3)
+            '@graphql-codegen/typescript':
+                specifier: ^5.0.9
+                version: 5.0.9(graphql@16.13.1)
+            '@graphql-codegen/typescript-resolvers':
+                specifier: ^5.1.7
+                version: 5.1.7(graphql@16.13.1)
             '@types/node':
                 specifier: ^25.5.0
                 version: 25.5.0
