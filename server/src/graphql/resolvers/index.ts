@@ -28,7 +28,7 @@ export const resolvers: Resolvers = {
 
             const newForm = formStore.create({
                 title: args.title,
-                description: args.description || null,
+                description: args.description ?? null,
                 questions: questionsWithIds,
             })
 
