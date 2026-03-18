@@ -48,6 +48,9 @@ importers:
                 specifier: ^9.2.1
                 version: 9.2.1
             husky:
+      eslint:
+        specifier: ^9.39.4
+        version: 9.39.4(jiti@2.6.1)
                 specifier: ^9.1.7
                 version: 9.1.7
             lint-staged:
