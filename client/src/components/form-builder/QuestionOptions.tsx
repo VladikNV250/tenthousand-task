@@ -46,7 +46,9 @@ export const QuestionOptions: FC<Props> = ({ type, question }) => {
                     readOnly
                     checked={false}
                 />
-                <button onClick={addOption}>Add option</button>
+                <button type="button" onClick={addOption}>
+                    Add option
+                </button>
             </label>
         </>
     )
