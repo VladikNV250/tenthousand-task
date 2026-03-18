@@ -1,8 +1,7 @@
 import { nanoid } from '@reduxjs/toolkit'
 import { useNavigate } from 'react-router'
 
-import { useCreateNewFormMutation } from '@/services/__generated__/generated'
-import { QuestionType } from '@/services/__generated__/graphql-types'
+import { QuestionType, useCreateNewFormMutation } from '@/services/__generated__/graphql'
 import { addQuestion, resetForm, selectFormBuilder } from '@/store/slices/formBuilderSlice'
 
 import { useAppDispatch, useAppSelector } from './redux'

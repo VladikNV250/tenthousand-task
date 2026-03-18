@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 
 import { Card } from '@/components/ui'
-import { useGetAllFormsQuery } from '@/services/__generated__/generated'
+import { useGetAllFormsQuery } from '@/services/__generated__/graphql'
 
 const Home = () => {
     const { data, isLoading, isError } = useGetAllFormsQuery()

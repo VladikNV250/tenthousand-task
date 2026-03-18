@@ -2,7 +2,7 @@ import { ArrowDown, ArrowUp, Trash } from 'lucide-react'
 import type { FC } from 'react'
 
 import { useQuestionActions } from '@/hooks'
-import { type Question, QuestionType } from '@/services/__generated__/graphql-types'
+import { type Question, QuestionType } from '@/services/__generated__/graphql'
 
 import { Card, Switch } from '../ui'
 import { QuestionOptions } from './QuestionOptions'

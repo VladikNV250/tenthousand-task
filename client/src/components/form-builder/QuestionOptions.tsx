@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 import type { FC } from 'react'
 
 import { useQuestionOptionActions } from '@/hooks'
-import { type Question, QuestionType } from '@/services/__generated__/graphql-types'
+import { type Question, QuestionType } from '@/services/__generated__/graphql'
 
 interface Props {
     type: QuestionType.MultipleChoice | QuestionType.Checkboxes

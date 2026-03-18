@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
-import type { Question } from '@/services/__generated__/graphql-types'
+import type { Question } from '@/services/__generated__/graphql'
 
 import type { RootState } from '../store'
 

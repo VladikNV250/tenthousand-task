@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import { QuestionType } from '@/services/__generated__/graphql-types'
+import { QuestionType } from '@/services/__generated__/graphql'
 
 interface Props {
     type: QuestionType.Text | QuestionType.Date

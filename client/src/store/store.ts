@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { api } from '../services/__generated__/generated'
+import { api } from '@/services/__generated__/graphql'
+
 import { formBuilderSlice } from './slices/formBuilderSlice'
 
 export const store = configureStore({
