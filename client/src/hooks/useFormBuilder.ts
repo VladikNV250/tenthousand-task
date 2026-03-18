@@ -41,7 +41,9 @@ export const useFormBuilder = () => {
             dispatch(resetForm())
             await navigate('/')
         } catch (e) {
-            console.log(e)
+            console.error('Failed to create form:', e)
+            // TODO: Add user-facing error notification (toast, alert, etc.)
+            // Example: dispatch(showError('Failed to create form. Please try again.'))
         }
     }
 
