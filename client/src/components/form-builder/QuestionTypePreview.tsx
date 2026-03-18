@@ -22,5 +22,5 @@ const TextPreview: FC = () => {
 }
 
 const DatePreview: FC = () => {
-    return <input type="date" disabled placeholder="Answer text" />
+    return <input type="date" disabled placeholder="Select date" />
 }
