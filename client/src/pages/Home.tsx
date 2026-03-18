@@ -34,7 +34,7 @@ const Home = () => {
                                 <li key={form.id}>
                                     <Card>
                                         <Link
-                                            to={`/forms/${form.id}`}
+                                            to={`/forms/${form.id}/fill`}
                                             className="text-2xl font-bold"
                                         >
                                             {form.title}
