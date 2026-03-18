@@ -22,7 +22,7 @@ query GetResponsesByForm($formId: ID!) {
   }
 }
 
-query GetFormByID($id: ID!) {
+query GetFormById($id: ID!) {
   form(id: $id) {
     title
     description

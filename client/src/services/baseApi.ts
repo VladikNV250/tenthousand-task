@@ -8,6 +8,14 @@ const client = new GraphQLClient(
 
 const rawBaseQuery = graphqlRequestBaseQuery({ client })
 
+/**
+ * WORKAROUND: Custom base query to fix `graphql-request` crashing with `TypedDocumentString`.
+ * * Our generated GraphQL queries use `TypedDocumentString`, which extends the native `String` class.
+ * Because `typeof document === 'object'`, the underlying `graphql-request` library incorrectly assumes
+ * it is an AST node (DocumentNode) and tries to call `.filter` on its definitions, resulting in a crash.
+ * * This interceptor checks if the document is an instance of `String` and explicitly calls `.toString()`
+ * to convert it into a primitive string before passing it to `graphqlRequestBaseQuery`.
+ */
 const customBaseQuery: typeof rawBaseQuery = async (args, api, extraOptions) => {
     let parsedArgs = args
 
