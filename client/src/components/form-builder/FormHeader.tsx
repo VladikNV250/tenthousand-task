@@ -20,7 +20,7 @@ export const FormHeader: FC<Props> = ({ onSubmit, onAddQuestion, onReset, isLoad
                 <button
                     onClick={onReset}
                     disabled={isLoading}
-                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer "
+                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer disabled:opacity-50 disabled:cursor-default"
                 >
                     <X />
                     Reset
@@ -28,7 +28,7 @@ export const FormHeader: FC<Props> = ({ onSubmit, onAddQuestion, onReset, isLoad
                 <button
                     onClick={onSubmit}
                     disabled={isLoading}
-                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer "
+                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer disabled:opacity-50 disabled:cursor-default"
                 >
                     <Save />
                     Publish form
@@ -36,7 +36,7 @@ export const FormHeader: FC<Props> = ({ onSubmit, onAddQuestion, onReset, isLoad
                 <button
                     onClick={onAddQuestion}
                     disabled={isLoading}
-                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer "
+                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer disabled:opacity-50 disabled:cursor-default"
                 >
                     <Plus />
                     Add question
