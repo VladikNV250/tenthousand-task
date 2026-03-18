@@ -19,36 +19,182 @@ export type Scalars = {
     Float: { input: number; output: number }
 }
 
-export type Book = {
-    __typename?: 'Book'
-    author?: Maybe<Scalars['String']['output']>
-    title?: Maybe<Scalars['String']['output']>
+export type Answer = {
+    __typename?: 'Answer'
+    id: Scalars['ID']['output']
+    questionId: Scalars['ID']['output']
+    value: Array<Scalars['String']['output']>
+}
+
+export type AnswerInput = {
+    questionId: Scalars['ID']['input']
+    value: Array<Scalars['String']['input']>
+}
+
+export type Form = {
+    __typename?: 'Form'
+    description?: Maybe<Scalars['String']['output']>
+    id: Scalars['ID']['output']
+    questions: Array<Question>
+    title: Scalars['String']['output']
 }
 
 export type Mutation = {
     __typename?: 'Mutation'
-    addBook?: Maybe<Book>
+    createForm?: Maybe<Form>
+    submitResponse?: Maybe<Response>
 }
 
-export type MutationAddBookArgs = {
-    author: Scalars['String']['input']
+export type MutationCreateFormArgs = {
+    description?: InputMaybe<Scalars['String']['input']>
+    questions?: InputMaybe<Array<QuestionInput>>
     title: Scalars['String']['input']
+}
+
+export type MutationSubmitResponseArgs = {
+    answers?: InputMaybe<Array<AnswerInput>>
+    formId: Scalars['ID']['input']
 }
 
 export type Query = {
     __typename?: 'Query'
-    books?: Maybe<Array<Maybe<Book>>>
+    form?: Maybe<Form>
+    forms: Array<Form>
+    responses: Array<Response>
 }
 
-export type GetBooksQueryVariables = Exact<{ [key: string]: never }>
+export type QueryFormArgs = {
+    id: Scalars['ID']['input']
+}
 
-export type GetBooksQuery = {
+export type QueryResponsesArgs = {
+    formId: Scalars['ID']['input']
+}
+
+export type Question = {
+    __typename?: 'Question'
+    id: Scalars['ID']['output']
+    options?: Maybe<Array<Scalars['String']['output']>>
+    required: Scalars['Boolean']['output']
+    text: Scalars['String']['output']
+    type: QuestionType
+}
+
+export type QuestionInput = {
+    options?: InputMaybe<Array<Scalars['String']['input']>>
+    required: Scalars['Boolean']['input']
+    text: Scalars['String']['input']
+    type: QuestionType
+}
+
+export enum QuestionType {
+    Checkboxes = 'CHECKBOXES',
+    Date = 'DATE',
+    MultipleChoice = 'MULTIPLE_CHOICE',
+    Text = 'TEXT',
+}
+
+export type Response = {
+    __typename?: 'Response'
+    answers: Array<Answer>
+    formId: Scalars['ID']['output']
+    id: Scalars['ID']['output']
+}
+
+export type GetAllFormsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAllFormsQuery = {
     __typename?: 'Query'
-    books?: Array<{
-        __typename?: 'Book'
-        title?: string | null
-        author?: string | null
-    } | null> | null
+    forms: Array<{
+        __typename?: 'Form'
+        id: string
+        title: string
+        description?: string | null
+        questions: Array<{
+            __typename?: 'Question'
+            id: string
+            text: string
+            type: QuestionType
+            options?: Array<string> | null
+        }>
+    }>
+}
+
+export type GetResponsesByFormQueryVariables = Exact<{
+    formId: Scalars['ID']['input']
+}>
+
+export type GetResponsesByFormQuery = {
+    __typename?: 'Query'
+    responses: Array<{
+        __typename?: 'Response'
+        id: string
+        answers: Array<{ __typename?: 'Answer'; questionId: string; value: Array<string> }>
+    }>
+}
+
+export type GetFormByIdQueryVariables = Exact<{
+    id: Scalars['ID']['input']
+}>
+
+export type GetFormByIdQuery = {
+    __typename?: 'Query'
+    form?: {
+        __typename?: 'Form'
+        title: string
+        description?: string | null
+        questions: Array<{
+            __typename?: 'Question'
+            id: string
+            text: string
+            type: QuestionType
+            options?: Array<string> | null
+        }>
+    } | null
+}
+
+export type CreateNewFormMutationVariables = Exact<{
+    title: Scalars['String']['input']
+    description?: InputMaybe<Scalars['String']['input']>
+    questions?: InputMaybe<Array<QuestionInput> | QuestionInput>
+}>
+
+export type CreateNewFormMutation = {
+    __typename?: 'Mutation'
+    createForm?: {
+        __typename?: 'Form'
+        id: string
+        title: string
+        description?: string | null
+        questions: Array<{
+            __typename?: 'Question'
+            id: string
+            text: string
+            type: QuestionType
+            required: boolean
+            options?: Array<string> | null
+        }>
+    } | null
+}
+
+export type SubmitFormResponseMutationVariables = Exact<{
+    formId: Scalars['ID']['input']
+    answers?: InputMaybe<Array<AnswerInput> | AnswerInput>
+}>
+
+export type SubmitFormResponseMutation = {
+    __typename?: 'Mutation'
+    submitResponse?: {
+        __typename?: 'Response'
+        id: string
+        formId: string
+        answers: Array<{
+            __typename?: 'Answer'
+            id: string
+            questionId: string
+            value: Array<string>
+        }>
+    } | null
 }
 
 export class TypedDocumentString<TResult, TVariables>
@@ -70,11 +216,75 @@ export class TypedDocumentString<TResult, TVariables>
     }
 }
 
-export const GetBooksDocument = new TypedDocumentString(`
-    query GetBooks {
-  books {
+export const GetAllFormsDocument = new TypedDocumentString(`
+    query GetAllForms {
+  forms {
+    id
     title
-    author
+    description
+    questions {
+      id
+      text
+      type
+      options
+    }
   }
 }
-    `) as unknown as TypedDocumentString<GetBooksQuery, GetBooksQueryVariables>
+    `) as unknown as TypedDocumentString<GetAllFormsQuery, GetAllFormsQueryVariables>
+export const GetResponsesByFormDocument = new TypedDocumentString(`
+    query GetResponsesByForm($formId: ID!) {
+  responses(formId: $formId) {
+    id
+    answers {
+      questionId
+      value
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetResponsesByFormQuery, GetResponsesByFormQueryVariables>
+export const GetFormByIdDocument = new TypedDocumentString(`
+    query GetFormByID($id: ID!) {
+  form(id: $id) {
+    title
+    description
+    questions {
+      id
+      text
+      type
+      options
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<GetFormByIdQuery, GetFormByIdQueryVariables>
+export const CreateNewFormDocument = new TypedDocumentString(`
+    mutation CreateNewForm($title: String!, $description: String, $questions: [QuestionInput!]) {
+  createForm(title: $title, description: $description, questions: $questions) {
+    id
+    title
+    description
+    questions {
+      id
+      text
+      type
+      required
+      options
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CreateNewFormMutation, CreateNewFormMutationVariables>
+export const SubmitFormResponseDocument = new TypedDocumentString(`
+    mutation SubmitFormResponse($formId: ID!, $answers: [AnswerInput!]) {
+  submitResponse(formId: $formId, answers: $answers) {
+    id
+    formId
+    answers {
+      id
+      questionId
+      value
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+    SubmitFormResponseMutation,
+    SubmitFormResponseMutationVariables
+>

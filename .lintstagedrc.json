@@ -1,8 +1,8 @@
 {
     "client/**/*.{ts,tsx,js,jsx}": [
-        "prettier --write",
-        "eslint --config client/eslint.config.js --fix"
+        "pnpm exec prettier --write",
+        "pnpm exec eslint --config client/eslint.config.js --fix"
     ],
-    "server/**/*.{ts,js}": ["prettier --write"],
-    "*.{json,md,yaml}": ["prettier --write"]
+    "server/**/*.{ts,js}": ["pnpm exec prettier --write"],
+    "*.{json,md,yaml}": ["pnpm exec prettier --write"]
 }

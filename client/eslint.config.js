@@ -7,11 +7,12 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import prettierConfig from 'eslint-config-prettier'
 import prettierPlugin from 'eslint-plugin-prettier'
 import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
-    globalIgnores(['dist', '.react-router', 'src/services/__generated__']),
-
+    {
+        ignores: ['dist/**', '.react-router/**', '**/__generated__/**'],
+    },
     {
         files: ['**/*.{ts,tsx}'],
         extends: [
