@@ -23,6 +23,7 @@ export const QuestionCard: FC<Props> = ({ question }) => {
         >
             <div>
                 <input
+                    aria-label="Question label"
                     type="text"
                     className="text-xl"
                     placeholder="Question text"
@@ -30,7 +31,11 @@ export const QuestionCard: FC<Props> = ({ question }) => {
                     value={question.text}
                     onChange={handleTitleChange}
                 />
-                <select onChange={handleTypeChange} value={question.type}>
+                <select
+                    aria-label="Question type"
+                    onChange={handleTypeChange}
+                    value={question.type}
+                >
                     <option value={QuestionType.Text}>Text</option>
                     <option value={QuestionType.MultipleChoice}>Multiple Choice</option>
                     <option value={QuestionType.Checkboxes}>Checkbox</option>
@@ -53,10 +58,20 @@ export const QuestionCard: FC<Props> = ({ question }) => {
             <hr className="my-5" />
             <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                    <button className="cursor-pointer" onClick={() => handleMove('down')}>
+                    <button
+                        type="button"
+                        aria-label="Move question down"
+                        className="cursor-pointer"
+                        onClick={() => handleMove('down')}
+                    >
                         <ArrowDown />
                     </button>
-                    <button className="cursor-pointer" onClick={() => handleMove('up')}>
+                    <button
+                        type="button"
+                        aria-label="Move question up"
+                        className="cursor-pointer"
+                        onClick={() => handleMove('up')}
+                    >
                         <ArrowUp />
                     </button>
                 </div>
@@ -65,7 +80,12 @@ export const QuestionCard: FC<Props> = ({ question }) => {
                         Required
                         <Switch status={question.required} onToggle={handleRequiredToggle} />
                     </label>
-                    <button className="cursor-pointer" onClick={handleRemove}>
+                    <button
+                        type="button"
+                        aria-label="Delete question"
+                        className="cursor-pointer"
+                        onClick={handleRemove}
+                    >
                         <Trash />
                     </button>
                 </div>

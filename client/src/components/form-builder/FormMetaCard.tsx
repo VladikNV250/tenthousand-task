@@ -13,6 +13,7 @@ export const FormMetaCard = () => {
                 type="text"
                 className="text-3xl"
                 placeholder="Form title"
+                aria-label="Form title"
                 required
                 value={formData.title}
                 onChange={(e) => dispatch(updateTitle(e.target.value))}
@@ -20,6 +21,7 @@ export const FormMetaCard = () => {
             <input
                 type="text"
                 placeholder="Form description"
+                aria-label="Form description"
                 value={formData.description}
                 onChange={(e) => dispatch(updateDescription(e.target.value))}
             />

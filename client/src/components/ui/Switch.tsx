@@ -7,6 +7,8 @@ interface SwitchProps {
     onToggle?: (status: boolean) => void
     disabled?: boolean
     className?: string
+    ariaLabel?: string
+    ariaLabelledBy?: string
 }
 
 export const Switch: FC<SwitchProps> = ({
@@ -14,12 +16,16 @@ export const Switch: FC<SwitchProps> = ({
     onToggle,
     disabled = false,
     className,
+    ariaLabel,
+    ariaLabelledBy,
 }) => {
     return (
         <button
             type="button"
             role="switch"
             aria-checked={status}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
             disabled={disabled}
             onClick={() => onToggle?.(!status)}
             className={cn(
