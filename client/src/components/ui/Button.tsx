@@ -11,7 +11,7 @@ export const Button: FC<Props> = ({ children, className, ...props }) => {
     return (
         <button
             className={cn(
-                'flex items-center gap-2 bg-blue-500 px-4 py-2 rounded text-white cursor-pointer hover:bg-blue-600 transition-colors',
+                'flex items-center gap-2 bg-blue-500 px-4 py-2 rounded text-white cursor-pointer hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
                 className,
             )}
             {...props}
