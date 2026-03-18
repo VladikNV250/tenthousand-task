@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import { api } from '../services/__generated__/generated'
-import { counterSlice } from './slices/counterSlice'
+import { formBuilderSlice } from './slices/formBuilderSlice'
 
 export const store = configureStore({
     reducer: {
         [api.reducerPath]: api.reducer,
-        counterSlice: counterSlice.reducer,
+        formBuilderSlice: formBuilderSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
 })
