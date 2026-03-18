@@ -17,10 +17,7 @@ export const QuestionCard: FC<Props> = ({ question }) => {
         useQuestionActions(question)
 
     return (
-        <Card
-            key={question.id}
-            className="border-t-8 border-violet-500 outline outline-gray-200 flex flex-col gap-4 "
-        >
+        <Card className="border-t-8 border-violet-500 outline outline-gray-200 flex flex-col gap-4 ">
             <div>
                 <input
                     aria-label="Question label"
