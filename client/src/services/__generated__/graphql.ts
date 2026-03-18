@@ -169,6 +169,7 @@ export type GetFormByIdQuery = {
             text: string
             type: QuestionType
             options?: Array<string> | null
+            required: boolean
         }>
     } | null
 }
@@ -253,6 +254,7 @@ export const GetFormByIdDocument = new TypedDocumentString(`
       text
       type
       options
+      required
     }
   }
 }
