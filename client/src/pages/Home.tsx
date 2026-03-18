@@ -4,7 +4,7 @@ import { Card } from '@/components/ui'
 import { useGetAllFormsQuery } from '@/services/__generated__/generated'
 
 const Home = () => {
-    const { data, isLoading } = useGetAllFormsQuery()
+    const { data, isLoading, isError } = useGetAllFormsQuery()
 
     return (
         <main className="min-h-screen min-w-screen flex flex-col items-center justify-center gap-4">
@@ -24,6 +24,10 @@ const Home = () => {
                 <div>
                     {isLoading ? (
                         <p>Loading...</p>
+                    ) : isError ? (
+                        <p>Couldn't load forms. Please try again.</p>
+                    ) : !data?.forms?.length ? (
+                        <p>No forms yet.</p>
                     ) : (
                         <ul className="flex flex-col gap-4">
                             {data?.forms.map((form) => (
