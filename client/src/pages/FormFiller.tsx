@@ -2,11 +2,22 @@ import type { FC } from 'react'
 import { Link } from 'react-router'
 
 import { FormMetaCard, ResponseCard, SuccessMessage } from '@/components/form-filler'
-import { Button, LoadingSpinner } from '@/components/ui'
+import { Button, ErrorMessage, LoadingSpinner } from '@/components/ui'
 import { useFormFiller } from '@/hooks'
+import { getRTKErrorMessage } from '@/lib'
 
 const FormFiller: FC = () => {
-    const { form, isLoading, handleSubmit, handleReset, isSubmitting, isSuccess } = useFormFiller()
+    const {
+        form,
+        isLoading,
+        handleSubmit,
+        handleReset,
+        isSubmitting,
+        isSuccess,
+        formFiller,
+        validationErrors,
+        serverError,
+    } = useFormFiller()
 
     if (isLoading) {
         return <LoadingSpinner className="min-h-screen" text="Loading form..." />
@@ -36,6 +47,14 @@ const FormFiller: FC = () => {
                 </Link>
             </header>
 
+            {serverError && (
+                <ErrorMessage
+                    className="fixed bottom-10 right-10 z-50 shadow-lg"
+                    title="Submission Failed"
+                    message={getRTKErrorMessage(serverError)}
+                />
+            )}
+
             {isSuccess ? (
                 <SuccessMessage onReset={handleReset} title={form.title} />
             ) : (
@@ -43,7 +62,15 @@ const FormFiller: FC = () => {
                     <form onSubmit={(e) => void handleSubmit(e)} className="flex flex-col gap-4">
                         <FormMetaCard title={form.title} description={form.description} />
                         {form.questions.map((question) => (
-                            <ResponseCard key={question.id} question={question} />
+                            <ResponseCard
+                                key={question.id}
+                                question={question}
+                                error={
+                                    formFiller.showErrors
+                                        ? validationErrors[question.id]
+                                        : undefined
+                                }
+                            />
                         ))}
                         <div className="flex items-center justify-start gap-4 mt-4">
                             <Button type="submit" disabled={isSubmitting}>

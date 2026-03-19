@@ -7,10 +7,12 @@ import type { RootState } from '../store'
 
 interface FormFillerState {
     answers: Partial<Record<string, Omit<Answer, 'id'>>>
+    showErrors: boolean
 }
 
 const initialState: FormFillerState = {
     answers: {},
+    showErrors: false,
 }
 
 export const formFillerSlice = createSlice({
@@ -23,10 +25,13 @@ export const formFillerSlice = createSlice({
         clearAnswers: (state) => {
             state.answers = {}
         },
+        setShowErrors: (state, action: PayloadAction<boolean>) => {
+            state.showErrors = action.payload
+        },
     },
 })
 
-export const { addAnswer, clearAnswers } = formFillerSlice.actions
+export const { addAnswer, clearAnswers, setShowErrors } = formFillerSlice.actions
 
 export const selectFormFiller = (state: RootState) => state.formFillerSlice
 export const selectAnswerByQuestionId = (questionId: string) => (state: RootState) =>
