@@ -8,5 +8,9 @@ interface Props {
 }
 
 export const Card: FC<Props> = ({ className, children }) => {
-    return <div className={cn('bg-white rounded-lg shadow-md p-6', className)}>{children}</div>
+    return (
+        <div className={cn('bg-white rounded-lg border border-gray-200 shadow-sm p-6', className)}>
+            {children}
+        </div>
+    )
 }
