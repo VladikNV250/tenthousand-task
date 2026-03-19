@@ -33,15 +33,17 @@ const Home = () => {
                             {data?.forms.map((form) => (
                                 <li key={form.id}>
                                     <Card>
-                                        <Link
-                                            to={`/forms/${form.id}/fill`}
-                                            className="text-2xl font-bold"
-                                        >
-                                            {form.title}
-                                        </Link>
+                                        <h3 className="text-2xl font-bold">{form.title}</h3>
                                         <p className="text-gray-500">{form.description}</p>
 
                                         <p>{form.questions.length} questions</p>
+
+                                        <div className="flex items-center gap-4 text-blue-700">
+                                            <Link to={`/forms/${form.id}/responses`}>
+                                                View responses
+                                            </Link>
+                                            <Link to={`/forms/${form.id}/fill`}>Fill form</Link>
+                                        </div>
                                     </Card>
                                 </li>
                             ))}

@@ -4,4 +4,5 @@ export default [
     index('./pages/Home.tsx'),
     route('/forms/new', './pages/FormBuilder.tsx'),
     route('/forms/:id/fill', './pages/FormFiller.tsx'),
+    route('/forms/:id/responses', './pages/FormResponses.tsx'),
 ] satisfies RouteConfig

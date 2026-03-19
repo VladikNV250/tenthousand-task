@@ -149,7 +149,12 @@ export type GetResponsesByFormQuery = {
     responses: Array<{
         __typename?: 'Response'
         id: string
-        answers: Array<{ __typename?: 'Answer'; questionId: string; value: Array<string> }>
+        answers: Array<{
+            __typename?: 'Answer'
+            id: string
+            questionId: string
+            value: Array<string>
+        }>
     }>
 }
 
@@ -238,6 +243,7 @@ export const GetResponsesByFormDocument = new TypedDocumentString(`
   responses(formId: $formId) {
     id
     answers {
+      id
       questionId
       value
     }
