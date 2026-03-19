@@ -6,7 +6,7 @@ import type { Answer } from '@/services/__generated__/graphql'
 import type { RootState } from '../store'
 
 interface FormFillerState {
-    answers: Record<string, Omit<Answer, 'id'>>
+    answers: Partial<Record<string, Omit<Answer, 'id'>>>
 }
 
 const initialState: FormFillerState = {
