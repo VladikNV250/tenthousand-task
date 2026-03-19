@@ -38,6 +38,7 @@ export const QuestionOptions: FC<Props> = ({ type, question }) => {
                         />
                     </div>
                     <button
+                        type="button"
                         className="cursor-pointer text-gray-400 hover:text-gray-600 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity p-2 rounded-full hover:bg-gray-100"
                         onClick={() => removeOption(index)}
                         aria-label="Remove option"
