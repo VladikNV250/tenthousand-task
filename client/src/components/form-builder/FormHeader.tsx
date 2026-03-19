@@ -1,6 +1,8 @@
-import { Plus, Save, X } from 'lucide-react'
+import { FileText, Plus, Save } from 'lucide-react'
 import type { FC } from 'react'
 import { Link } from 'react-router'
+
+import { Button } from '@/components/ui'
 
 interface Props {
     onSubmit: () => void
@@ -11,36 +13,35 @@ interface Props {
 
 export const FormHeader: FC<Props> = ({ onSubmit, onAddQuestion, onReset, isLoading }) => {
     return (
-        <header className="fixed py-4 px-10 top-0 left-0 w-full flex items-center justify-between bg-gray-100">
-            <h1 className="text-2xl font-bold text-yellow-400">Form Builder</h1>
-            <Link to="/" className="text-black underline px-4 py-2 text-lg cursor-pointer">
-                Home
-            </Link>
-            <div className="flex items-center gap-2">
-                <button
+        <header className="fixed z-20 top-0 left-0 w-full h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shadow-sm">
+            <div className="flex items-center gap-4">
+                <Link
+                    to="/"
+                    className="p-2 bg-[#f0ebf8] rounded text-[#673ab7] hover:bg-violet-100 transition-colors"
+                    title="Home"
+                >
+                    <FileText size={24} />
+                </Link>
+                <div className="text-xl text-gray-700">Form Builder</div>
+            </div>
+
+            <div className="flex items-center gap-3">
+                <Button
                     onClick={onReset}
                     disabled={isLoading}
-                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer disabled:opacity-50 disabled:cursor-default"
+                    variant="ghost"
+                    title="Clear content"
                 >
-                    <X />
-                    Reset
-                </button>
-                <button
-                    onClick={onSubmit}
-                    disabled={isLoading}
-                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer disabled:opacity-50 disabled:cursor-default"
-                >
-                    <Save />
-                    Publish form
-                </button>
-                <button
-                    onClick={onAddQuestion}
-                    disabled={isLoading}
-                    className="flex items-center gap-2 bg-violet-400 px-4 py-2 rounded text-white cursor-pointer disabled:opacity-50 disabled:cursor-default"
-                >
-                    <Plus />
-                    Add question
-                </button>
+                    Clear
+                </Button>
+                <Button onClick={onAddQuestion} disabled={isLoading} variant="outline">
+                    <Plus size={16} />
+                    <span className="hidden sm:inline">Add Question</span>
+                </Button>
+                <Button onClick={onSubmit} disabled={isLoading}>
+                    <Save size={16} className="mr-1" />
+                    Send
+                </Button>
             </div>
         </header>
     )

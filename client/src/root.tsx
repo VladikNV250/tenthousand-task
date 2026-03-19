@@ -14,7 +14,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 <Meta />
                 <Links />
             </head>
-            <body>
+            <body className="antialiased min-h-screen">
                 {children}
                 <ScrollRestoration />
                 <Scripts />
