@@ -29,7 +29,34 @@ const customBaseQuery: typeof rawBaseQuery = async (args, api, extraOptions) => 
     return rawBaseQuery(parsedArgs, api, extraOptions)
 }
 
-export const api = createApi({
+const rootApi = createApi({
     baseQuery: customBaseQuery,
+    tagTypes: ['Forms', 'Responses'],
     endpoints: () => ({}),
+})
+
+export const api = rootApi.enhanceEndpoints({
+    endpoints: {
+        GetAllForms: {
+            providesTags: ['Forms'],
+        },
+        GetFormById: {
+            providesTags: (_result: unknown, _error: unknown, arg: { id: string }) => [
+                { type: 'Forms' as const, id: arg.id },
+            ],
+        },
+        GetResponsesByForm: {
+            providesTags: (_result: unknown, _error: unknown, arg: { formId: string }) => [
+                { type: 'Responses' as const, id: arg.formId },
+            ],
+        },
+        CreateNewForm: {
+            invalidatesTags: ['Forms'],
+        },
+        SubmitFormResponse: {
+            invalidatesTags: (_result: unknown, _error: unknown, arg: { formId: string }) => [
+                { type: 'Responses' as const, id: arg.formId },
+            ],
+        },
+    },
 })
