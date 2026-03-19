@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import { cn } from '@/lib'
 
 interface SwitchProps {
+    id?: string
     status?: boolean
     onToggle?: (status: boolean) => void
     disabled?: boolean
@@ -12,6 +13,7 @@ interface SwitchProps {
 }
 
 export const Switch: FC<SwitchProps> = ({
+    id,
     status = false,
     onToggle,
     disabled = false,
@@ -21,6 +23,7 @@ export const Switch: FC<SwitchProps> = ({
 }) => {
     return (
         <button
+            id={id}
             type="button"
             role="switch"
             aria-checked={status}

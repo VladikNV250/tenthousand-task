@@ -73,9 +73,16 @@ export const QuestionCard: FC<Props> = ({ question }) => {
                     </button>
                 </div>
                 <div className="flex items-center gap-4">
-                    <label className="flex items-center gap-2">
+                    <label
+                        className="flex items-center gap-2"
+                        htmlFor={`required-switch-${question.id}`}
+                    >
                         Required
-                        <Switch status={question.required} onToggle={handleRequiredToggle} />
+                        <Switch
+                            id={`required-switch-${question.id}`}
+                            status={question.required}
+                            onToggle={handleRequiredToggle}
+                        />
                     </label>
                     <button
                         type="button"
