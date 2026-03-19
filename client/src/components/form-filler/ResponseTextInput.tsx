@@ -15,6 +15,7 @@ export const ResponseTextInput: FC<Props> = ({ question }) => {
             type="text"
             name={question.id}
             required={question.required}
+            aria-label={question.text}
             placeholder="Your answer"
             className="w-full p-2 border border-gray-300 rounded-md"
             onChange={handleChange}

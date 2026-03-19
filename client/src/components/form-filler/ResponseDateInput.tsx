@@ -15,6 +15,7 @@ export const ResponseDateInput: FC<Props> = ({ question }) => {
             <p className="text-gray-600 text-sm">Date</p>
             <input
                 type="date"
+                aria-label={question.text}
                 name={question.id}
                 required={question.required}
                 className="w-full p-2 border border-gray-300 rounded-md"
