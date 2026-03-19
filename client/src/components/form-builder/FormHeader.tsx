@@ -19,14 +19,16 @@ export const FormHeader: FC<Props> = ({ onSubmit, onAddQuestion, onReset, isLoad
                     to="/"
                     className="p-2 bg-[#f0ebf8] rounded text-[#673ab7] hover:bg-violet-100 transition-colors"
                     title="Home"
+                    aria-label="Home"
                 >
-                    <FileText size={24} />
+                    <FileText size={24} aria-hidden />
                 </Link>
                 <div className="text-xl text-gray-700">Form Builder</div>
             </div>
 
             <div className="flex items-center gap-3">
                 <Button
+                    aria-label="Clear content"
                     onClick={onReset}
                     disabled={isLoading}
                     variant="ghost"
@@ -34,12 +36,17 @@ export const FormHeader: FC<Props> = ({ onSubmit, onAddQuestion, onReset, isLoad
                 >
                     Clear
                 </Button>
-                <Button onClick={onAddQuestion} disabled={isLoading} variant="outline">
-                    <Plus size={16} />
+                <Button
+                    aria-label="Add question"
+                    onClick={onAddQuestion}
+                    disabled={isLoading}
+                    variant="outline"
+                >
+                    <Plus size={16} aria-hidden />
                     <span className="hidden sm:inline">Add Question</span>
                 </Button>
-                <Button onClick={onSubmit} disabled={isLoading}>
-                    <Save size={16} className="mr-1" />
+                <Button aria-label="Save form" onClick={onSubmit} disabled={isLoading}>
+                    <Save size={16} className="mr-1" aria-hidden />
                     Send
                 </Button>
             </div>
