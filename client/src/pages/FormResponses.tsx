@@ -2,6 +2,7 @@ import { type FC } from 'react'
 import { Link } from 'react-router'
 
 import { FormMetaCard, QuestionSummaryCard, SubmissionCard } from '@/components/form-responses'
+import { LoadingSpinner } from '@/components/ui'
 import { useFormResponses } from '@/hooks/useFormResponses'
 
 const FormResponses: FC = () => {
@@ -20,19 +21,29 @@ const FormResponses: FC = () => {
     } = useFormResponses()
 
     return (
-        <main className="min-h-screen min-w-screen flex flex-col items-center justify-center gap-4 pb-20">
-            <header className="fixed py-4 px-10 top-0 left-0 w-full flex items-center justify-between bg-gray-100">
-                <h1 className="text-2xl font-bold text-yellow-400">
-                    {formData?.form?.title ?? 'Form responses'}
-                </h1>
-                <Link to="/" className="text-black underline px-4 py-2 text-lg cursor-pointer">
-                    Home
+        <main className="min-h-screen w-full flex flex-col pt-16 pb-12">
+            <header className="fixed z-20 top-0 left-0 w-full h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shadow-sm">
+                <div className="flex items-center gap-4">
+                    <Link
+                        to="/"
+                        className="text-xl font-normal text-gray-700 hover:text-[#673ab7] transition-colors"
+                        title="Home"
+                    >
+                        {formData?.form?.title ?? 'Form responses'}
+                    </Link>
+                </div>
+                <Link
+                    to="/"
+                    className="text-sm font-medium text-gray-700 hover:bg-gray-100 border border-gray-300 px-4 py-2 rounded-md transition-colors"
+                >
+                    Back to forms
                 </Link>
             </header>
+
             {isLoading ? (
-                <p>Loading...</p>
+                <LoadingSpinner className="mt-20" text="Loading responses..." />
             ) : (
-                <div className="flex flex-col items-center gap-4 pt-24">
+                <div className="w-full max-w-3xl mx-auto flex flex-col gap-4 mt-8 px-4 sm:px-6">
                     <FormMetaCard
                         responsesCount={responsesData?.responses.length ?? 0}
                         selectedResponseIndex={selectedResponseIndex}
@@ -48,6 +59,7 @@ const FormResponses: FC = () => {
                                 key={question.id}
                                 question={question}
                                 answers={answersByQuestionId[question.id] ?? []}
+                                totalResponses={responsesData?.responses.length ?? 0}
                             />
                         ))}
                     {view === 'individual' &&

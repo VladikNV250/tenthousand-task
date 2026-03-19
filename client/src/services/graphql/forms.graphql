@@ -1,65 +1,65 @@
 query GetAllForms {
-  forms {
-    id
-    title
-    description
-    questions {
-      id
-      text
-      type
-      options
+    forms {
+        id
+        title
+        description
+        questions {
+            id
+            text
+            type
+            options
+        }
     }
-  }
 }
 
 query GetResponsesByForm($formId: ID!) {
-  responses(formId: $formId) {
-    id
-    answers {
-      id
-      questionId
-      value
+    responses(formId: $formId) {
+        id
+        answers {
+            id
+            questionId
+            value
+        }
     }
-  }
 }
 
 query GetFormById($id: ID!) {
-  form(id: $id) {
-    title
-    description
-    questions {
-      id
-      text
-      type
-      options
-      required
+    form(id: $id) {
+        title
+        description
+        questions {
+            id
+            text
+            type
+            options
+            required
+        }
     }
-  }
 }
 
 mutation CreateNewForm($title: String!, $description: String, $questions: [QuestionInput!]) {
-  createForm(title: $title, description: $description, questions: $questions) {
-    id
-    title
-    description
-    questions {
-      id
-      text
-      type
-      required
-      options
+    createForm(title: $title, description: $description, questions: $questions) {
+        id
+        title
+        description
+        questions {
+            id
+            text
+            type
+            required
+            options
+        }
     }
-  }
 }
 
 mutation SubmitFormResponse($formId: ID!, $answers: [AnswerInput!]) {
-  submitResponse(formId: $formId, answers: $answers) {
-    id
-    formId
-    answers {
-      id
-      questionId
-      value
+    submitResponse(formId: $formId, answers: $answers) {
+        id
+        formId
+        answers {
+            id
+            questionId
+            value
+        }
     }
-  }
 }

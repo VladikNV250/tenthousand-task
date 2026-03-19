@@ -7,17 +7,22 @@ const FormBuilder: FC = () => {
     const { formData, handleAddQuestion, handleSubmit, handleReset, isLoading } = useFormBuilder()
 
     return (
-        <main className="min-h-screen min-w-screen flex flex-col gap-4 pt-20">
+        <main className="min-h-screen w-full flex flex-col pt-16 pb-12">
             <FormHeader
                 onSubmit={() => void handleSubmit()}
                 onAddQuestion={handleAddQuestion}
                 onReset={handleReset}
                 isLoading={isLoading}
             />
-            <div className="flex flex-col items-center gap-4 pt-6">
+            <div className="w-full max-w-3xl mx-auto flex flex-col gap-4 mt-8 px-4 sm:px-6">
                 <FormMetaCard />
-                {formData.questions.map((question) => (
-                    <QuestionCard question={question} key={question.id} />
+                {formData.questions.map((question, index) => (
+                    <QuestionCard
+                        question={question}
+                        key={question.id}
+                        isFirst={index === 0}
+                        isLast={index === formData.questions.length - 1}
+                    />
                 ))}
             </div>
         </main>
