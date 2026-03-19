@@ -36,7 +36,7 @@ export const useFormResponses = () => {
     const previousResponse = () => setSelectedResponseIndex((prev) => Math.max(prev - 1, 0))
     const selectResponse = (index: number) =>
         setSelectedResponseIndex(
-            Math.max(Math.min(index, (responsesData?.responses.length ?? 0) - 1), 0),
+            Math.max(Math.min(index, (responsesData?.responses.length ?? 1) - 1), 0),
         )
 
     return {

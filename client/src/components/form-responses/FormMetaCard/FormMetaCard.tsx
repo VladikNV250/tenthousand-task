@@ -27,7 +27,7 @@ export const FormMetaCard: FC<Props> = ({
         <Card className="flex flex-col gap-8 w-md">
             <h2 className="text-2xl font-bold">{responsesCount} responses</h2>
             <ViewTabs view={view} onSetView={onSetView} />
-            {view === 'individual' && (
+            {view === 'individual' && responsesCount > 0 && (
                 <ResponseNavigation
                     responsesCount={responsesCount}
                     selectedResponseIndex={selectedResponseIndex}

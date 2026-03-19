@@ -13,6 +13,7 @@ export const OptionsAnswer: FC<OptionsAnswerProps> = ({ question, answer }) => {
             {question.options?.map((option) => (
                 <div key={option} className="flex items-center gap-2">
                     <input
+                        id={option}
                         type={question.type === QuestionType.MultipleChoice ? 'radio' : 'checkbox'}
                         value={option}
                         checked={answer.value.includes(option)}
