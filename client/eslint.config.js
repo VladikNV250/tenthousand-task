@@ -12,7 +12,13 @@ import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
     {
-        ignores: ['dist/**', '.react-router/**', '**/__generated__/**'],
+        ignores: [
+            'dist/**',
+            '.react-router/**',
+            '**/__generated__/**',
+            '**/*.test.ts',
+            '**/*.test.tsx',
+        ],
     },
     {
         files: ['**/*.{ts,tsx}'],

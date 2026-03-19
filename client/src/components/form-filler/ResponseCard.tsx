@@ -15,7 +15,7 @@ interface Props {
 export const ResponseCard: FC<Props> = ({ question, error }) => {
     return (
         <Card className="flex flex-col gap-5 p-6 border border-gray-200 shadow-sm rounded-lg focus-within:shadow-md transition-shadow">
-            <h4 className="text-base text-gray-800 font-medium break-words">
+            <h4 className="text-base text-gray-800 font-medium wrap-break-word">
                 {question.text}
                 {question.required && <span className="text-red-600 ml-1 text-lg">*</span>}
             </h4>

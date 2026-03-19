@@ -10,7 +10,7 @@
         "postbuild": "cpx \"src/graphql/**/*.graphql\" dist/graphql",
         "typecheck": "tsc --noEmit",
         "codegen": "graphql-codegen --config codegen.ts",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "vitest run"
     },
     "devDependencies": {
         "@graphql-codegen/cli": "^6.2.1",
