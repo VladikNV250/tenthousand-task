@@ -1,8 +1,14 @@
 import { nanoid } from '@reduxjs/toolkit'
 import { useNavigate } from 'react-router'
 
+import { validateCreateNewForm } from '@/lib'
 import { QuestionType, useCreateNewFormMutation } from '@/services/__generated__/graphql'
-import { addQuestion, resetForm, selectFormBuilder } from '@/store/slices/formBuilderSlice'
+import {
+    addQuestion,
+    resetForm,
+    selectFormBuilder,
+    setShowErrors,
+} from '@/store/slices/formBuilderSlice'
 
 import { useAppDispatch, useAppSelector } from './redux'
 
@@ -23,9 +29,17 @@ export const useFormBuilder = () => {
         )
     }
 
-    const [createNewForm, { isLoading }] = useCreateNewFormMutation()
+    const [createNewForm, { isLoading, error: serverError }] = useCreateNewFormMutation()
+
+    const validationErrors = validateCreateNewForm(formData.title, formData.questions)
+    const hasValidationErrors = Object.keys(validationErrors).length > 0
 
     const handleSubmit = async () => {
+        if (hasValidationErrors) {
+            dispatch(setShowErrors(true))
+            return
+        }
+
         try {
             await createNewForm({
                 title: formData.title,
@@ -38,11 +52,10 @@ export const useFormBuilder = () => {
                 })),
             }).unwrap()
             dispatch(resetForm())
+            dispatch(setShowErrors(false))
             await navigate('/')
         } catch (e) {
             console.error('Failed to create form:', e)
-            // TODO: Add user-facing error notification (toast, alert, etc.)
-            // Example: dispatch(showError('Failed to create form. Please try again.'))
         }
     }
 
@@ -56,5 +69,6 @@ export const useFormBuilder = () => {
         handleSubmit,
         handleReset,
         isLoading,
+        serverError,
     }
 }

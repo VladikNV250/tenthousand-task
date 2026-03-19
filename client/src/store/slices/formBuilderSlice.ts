@@ -1,6 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { createSlice } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 
+import { validateCreateNewForm } from '@/lib'
 import type { Question } from '@/services/__generated__/graphql'
 
 import type { RootState } from '../store'
@@ -9,12 +10,14 @@ interface FormBuilderState {
     title: string
     description: string
     questions: Array<Question>
+    showErrors: boolean
 }
 
 const initialState: FormBuilderState = {
     title: 'Untitled form',
     description: '',
     questions: [],
+    showErrors: false,
 }
 
 export const formBuilderSlice = createSlice({
@@ -48,6 +51,9 @@ export const formBuilderSlice = createSlice({
             state.questions.splice(newIndex, 0, movedQuestion)
         },
         resetForm: () => initialState,
+        setShowErrors: (state, action: PayloadAction<boolean>) => {
+            state.showErrors = action.payload
+        },
     },
 })
 
@@ -59,8 +65,19 @@ export const {
     removeQuestion,
     resetForm,
     moveQuestion,
+    setShowErrors,
 } = formBuilderSlice.actions
 
 export const selectFormBuilder = (state: RootState) => state.formBuilderSlice
+
+export const selectFormBuilderErrors = createSelector(
+    [
+        (state: RootState) => state.formBuilderSlice.title,
+        (state: RootState) => state.formBuilderSlice.questions,
+    ],
+    (title, questions) => {
+        return validateCreateNewForm(title, questions)
+    },
+)
 
 export default formBuilderSlice.reducer

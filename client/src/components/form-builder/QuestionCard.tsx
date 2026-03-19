@@ -1,8 +1,9 @@
 import { ArrowDown, ArrowUp, Trash } from 'lucide-react'
 import type { FC } from 'react'
 
-import { useQuestionActions } from '@/hooks'
+import { useAppSelector, useQuestionActions } from '@/hooks'
 import { type Question, QuestionType } from '@/services/__generated__/graphql'
+import { selectFormBuilder, selectFormBuilderErrors } from '@/store/slices/formBuilderSlice'
 
 import { Card, Input, Select, Switch } from '../ui'
 import { QuestionOptions } from './QuestionOptions'
@@ -18,6 +19,9 @@ export const QuestionCard: FC<Props> = ({ question, isFirst, isLast }) => {
     const { handleTitleChange, handleMove, handleRemove, handleRequiredToggle, handleTypeChange } =
         useQuestionActions(question)
 
+    const { showErrors } = useAppSelector(selectFormBuilder)
+    const errors = useAppSelector(selectFormBuilderErrors)
+
     return (
         <Card className="flex flex-col gap-4 focus-within:shadow-md focus-within:border-l-4 focus-within:border-l-blue-500 transition-all duration-200">
             <div className="flex flex-col md:flex-row gap-4">
@@ -28,6 +32,7 @@ export const QuestionCard: FC<Props> = ({ question, isFirst, isLast }) => {
                     required
                     value={question.text}
                     onChange={handleTitleChange}
+                    error={showErrors ? errors.questions?.[question.id] : undefined}
                 />
                 <Select
                     aria-label="Question type"
