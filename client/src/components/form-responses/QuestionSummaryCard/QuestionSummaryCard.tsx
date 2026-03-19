@@ -10,16 +10,23 @@ import { QuestionTextSummary } from './QuestionTextSummary'
 interface Props {
     question: Question
     answers: Answer[]
+    totalResponses: number
 }
 
-export const QuestionSummaryCard: FC<Props> = ({ question, answers }) => {
+export const QuestionSummaryCard: FC<Props> = ({ question, answers, totalResponses }) => {
     return (
-        <Card key={question.id} className="w-md">
-            <h4 className="text-xl">{question.text}</h4>
+        <Card key={question.id} className="w-full flex-col gap-4 p-6">
+            <h4 className="text-base text-gray-800 font-medium break-words mb-4">
+                {question.text}
+            </h4>
             {question.type === QuestionType.Text && <QuestionTextSummary answers={answers} />}
             {(question.type === QuestionType.MultipleChoice ||
                 question.type === QuestionType.Checkboxes) && (
-                <QuestionOptionsSummary question={question} answers={answers} />
+                <QuestionOptionsSummary
+                    question={question}
+                    answers={answers}
+                    totalResponses={totalResponses}
+                />
             )}
             {question.type === QuestionType.Date && <QuestionDateSummary answers={answers} />}
         </Card>

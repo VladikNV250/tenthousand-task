@@ -19,8 +19,10 @@ export const SubmissionCard: FC<Props> = ({ question, answer }) => {
     }
 
     return (
-        <Card key={question.id} className="w-md">
-            <h4 className="text-xl mb-3">{question.text}</h4>
+        <Card key={question.id} className="w-full flex-col gap-4 p-6">
+            <h4 className="text-base text-gray-800 font-medium break-words mb-4">
+                {question.text}
+            </h4>
             {question.type === QuestionType.Text && <TextAnswer answer={answer} />}
             {(question.type === QuestionType.MultipleChoice ||
                 question.type === QuestionType.Checkboxes) && (

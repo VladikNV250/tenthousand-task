@@ -24,17 +24,19 @@ export const FormMetaCard: FC<Props> = ({
     view,
 }) => {
     return (
-        <Card className="flex flex-col gap-8 w-md">
-            <h2 className="text-2xl font-bold">{responsesCount} responses</h2>
+        <Card className="flex flex-col gap-6 w-full border-t-8 border-t-[#673ab7] rounded-t-lg !p-8">
+            <h2 className="text-3xl font-regular text-gray-800">{responsesCount} responses</h2>
             <ViewTabs view={view} onSetView={onSetView} />
             {view === 'individual' && responsesCount > 0 && (
-                <ResponseNavigation
-                    responsesCount={responsesCount}
-                    selectedResponseIndex={selectedResponseIndex}
-                    onNextResponse={nextResponse}
-                    onPreviousResponse={previousResponse}
-                    onSelectResponse={selectResponse}
-                />
+                <div className="pt-2">
+                    <ResponseNavigation
+                        responsesCount={responsesCount}
+                        selectedResponseIndex={selectedResponseIndex}
+                        onNextResponse={nextResponse}
+                        onPreviousResponse={previousResponse}
+                        onSelectResponse={selectResponse}
+                    />
+                </div>
             )}
         </Card>
     )
