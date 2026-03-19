@@ -5,30 +5,38 @@ const config: CodegenConfig = {
     schema: 'http://localhost:4000/graphql',
     documents: ['src/**/*.graphql'],
     generates: {
-        'src/services/__generated__/graphql-types.ts': {
-            plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
-            config: {
-                documentMode: 'string',
-            },
-        },
-        'src/services/__generated__/generated.ts': {
-            preset: 'import-types',
-            presetConfig: {
-                typesPath: './graphql-types',
-            },
+        'src/services/__generated__/graphql.ts': {
             plugins: [
                 {
+                    /**
+                     * WORKAROUND: Manually injecting the TypedDocumentString class.
+                     * * We use `documentMode: 'string'` to generate lightweight string queries instead of heavy ASTs to reduce bundle size.
+                     * However, the `typescript-rtk-query` plugin generates `new TypedDocumentString(...)` instantiations but
+                     * fails to generate the actual class declaration.
+                     * Using the `typed-document-node` plugin alongside it causes "Identifier has already been declared" conflicts.
+                     * To fix this, we omit `typed-document-node` and manually inject the class definition here using the `add` plugin.
+                     */
                     add: {
-                        content: "import { TypedDocumentString } from './graphql-types';",
+                        content: `
+export interface DocumentTypeDecoration<TResult, TVariables> {
+  __apiType?: (variables: TVariables) => TResult;
+}
+export class TypedDocumentString<TResult, TVariables> extends String implements DocumentTypeDecoration<TResult, TVariables> {
+  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];
+  constructor(private value: string, public __meta__?: Record<string, any>) { super(value); }
+  toString(): string & DocumentTypeDecoration<TResult, TVariables> { return this.value; }
+}
+                        `,
                     },
                 },
+                'typescript',
+                'typescript-operations',
                 'typescript-rtk-query',
             ],
             config: {
-                importBaseApiFrom: '@/services/baseApi',
+                importBaseApiFrom: '../baseApi',
                 exportHooks: true,
-                documentMode: 'external',
-                importDocumentNodeExternallyFrom: './graphql-types',
+                documentMode: 'string',
             },
         },
     },

@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 import type { FC } from 'react'
 
 import { useQuestionOptionActions } from '@/hooks'
-import { type Question, QuestionType } from '@/services/__generated__/graphql-types'
+import { type Question, QuestionType } from '@/services/__generated__/graphql'
 
 interface Props {
     type: QuestionType.MultipleChoice | QuestionType.Checkboxes
@@ -21,35 +21,38 @@ export const QuestionOptions: FC<Props> = ({ type, question }) => {
                     key={index}
                     className="w-full flex items-center justify-between"
                 >
-                    <label className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
                         <input
                             type={type === QuestionType.MultipleChoice ? 'radio' : 'checkbox'}
                             value={option}
                             readOnly
                             name={question.id}
+                            aria-label={`Option ${index + 1}`}
                         />
                         <input
                             type="text"
                             value={option}
                             onChange={(e) => editOption(index, e.target.value)}
+                            aria-label={`Edit option ${index + 1} text`}
                         />
-                    </label>
+                    </div>
                     <button className="cursor-pointer" onClick={() => removeOption(index)}>
                         <X />
                     </button>
                 </div>
             ))}
-            <label className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
                 <input
                     type={type === QuestionType.MultipleChoice ? 'radio' : 'checkbox'}
                     value=""
                     readOnly
                     checked={false}
+                    aria-hidden="true"
                 />
                 <button type="button" onClick={addOption}>
                     Add option
                 </button>
-            </label>
+            </div>
         </>
     )
 }

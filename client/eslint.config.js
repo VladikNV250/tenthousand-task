@@ -7,6 +7,7 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import prettierConfig from 'eslint-config-prettier'
 import prettierPlugin from 'eslint-plugin-prettier'
 import tseslint from 'typescript-eslint'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
 import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
@@ -22,6 +23,7 @@ export default defineConfig([
             tseslint.configs.recommendedTypeChecked,
             reactHooks.configs.flat.recommended,
             reactRefresh.configs.vite,
+            jsxA11y.flatConfigs.recommended,
             // Must be last — disables ESLint rules that conflict with Prettier
             prettierConfig,
         ],
@@ -66,6 +68,9 @@ export default defineConfig([
             // --- Import sorting ---
             'simple-import-sort/imports': 'warn',
             'simple-import-sort/exports': 'warn',
+
+            // --- General ---
+            'no-console': ['warn', { allow: ['warn', 'error'] }],
 
             // --- TypeScript ---
             '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],

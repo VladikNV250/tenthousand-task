@@ -1,4 +1,4 @@
-import type { Question } from '@/services/__generated__/graphql-types'
+import type { Question } from '@/services/__generated__/graphql'
 import { updateQuestion } from '@/store/slices/formBuilderSlice'
 
 import { useAppDispatch } from './redux'

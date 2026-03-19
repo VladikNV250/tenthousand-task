@@ -2,7 +2,7 @@ import { ArrowDown, ArrowUp, Trash } from 'lucide-react'
 import type { FC } from 'react'
 
 import { useQuestionActions } from '@/hooks'
-import { type Question, QuestionType } from '@/services/__generated__/graphql-types'
+import { type Question, QuestionType } from '@/services/__generated__/graphql'
 
 import { Card, Switch } from '../ui'
 import { QuestionOptions } from './QuestionOptions'
@@ -17,10 +17,7 @@ export const QuestionCard: FC<Props> = ({ question }) => {
         useQuestionActions(question)
 
     return (
-        <Card
-            key={question.id}
-            className="border-t-8 border-violet-500 outline outline-gray-200 flex flex-col gap-4 "
-        >
+        <Card className="border-t-8 border-violet-500 outline outline-gray-200 flex flex-col gap-4 ">
             <div>
                 <input
                     aria-label="Question label"
@@ -76,9 +73,16 @@ export const QuestionCard: FC<Props> = ({ question }) => {
                     </button>
                 </div>
                 <div className="flex items-center gap-4">
-                    <label className="flex items-center gap-2">
+                    <label
+                        className="flex items-center gap-2"
+                        htmlFor={`required-switch-${question.id}`}
+                    >
                         Required
-                        <Switch status={question.required} onToggle={handleRequiredToggle} />
+                        <Switch
+                            id={`required-switch-${question.id}`}
+                            status={question.required}
+                            onToggle={handleRequiredToggle}
+                        />
                     </label>
                     <button
                         type="button"

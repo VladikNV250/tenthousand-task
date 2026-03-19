@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react'
 
 import { useAppDispatch } from '@/hooks'
-import { type Question, QuestionType } from '@/services/__generated__/graphql-types'
+import { type Question, QuestionType } from '@/services/__generated__/graphql'
 import { moveQuestion, removeQuestion, updateQuestion } from '@/store/slices/formBuilderSlice'
 
 export const useQuestionActions = (question: Question) => {

@@ -1,4 +1,24 @@
-import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
+import { api } from '../baseApi'
+
+export interface DocumentTypeDecoration<TResult, TVariables> {
+    __apiType?: (variables: TVariables) => TResult
+}
+export class TypedDocumentString<TResult, TVariables>
+    extends String
+    implements DocumentTypeDecoration<TResult, TVariables>
+{
+    __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType']
+    constructor(
+        private value: string,
+        public __meta__?: Record<string, any>,
+    ) {
+        super(value)
+    }
+    toString(): string & DocumentTypeDecoration<TResult, TVariables> {
+        return this.value
+    }
+}
+
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
@@ -149,6 +169,7 @@ export type GetFormByIdQuery = {
             text: string
             type: QuestionType
             options?: Array<string> | null
+            required: boolean
         }>
     } | null
 }
@@ -197,25 +218,6 @@ export type SubmitFormResponseMutation = {
     } | null
 }
 
-export class TypedDocumentString<TResult, TVariables>
-    extends String
-    implements DocumentTypeDecoration<TResult, TVariables>
-{
-    __apiType?: NonNullable<DocumentTypeDecoration<TResult, TVariables>['__apiType']>
-    private value: string
-    public __meta__?: Record<string, any> | undefined
-
-    constructor(value: string, __meta__?: Record<string, any> | undefined) {
-        super(value)
-        this.value = value
-        this.__meta__ = __meta__
-    }
-
-    override toString(): string & DocumentTypeDecoration<TResult, TVariables> {
-        return this.value
-    }
-}
-
 export const GetAllFormsDocument = new TypedDocumentString(`
     query GetAllForms {
   forms {
@@ -230,7 +232,7 @@ export const GetAllFormsDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<GetAllFormsQuery, GetAllFormsQueryVariables>
+    `)
 export const GetResponsesByFormDocument = new TypedDocumentString(`
     query GetResponsesByForm($formId: ID!) {
   responses(formId: $formId) {
@@ -241,9 +243,9 @@ export const GetResponsesByFormDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<GetResponsesByFormQuery, GetResponsesByFormQueryVariables>
+    `)
 export const GetFormByIdDocument = new TypedDocumentString(`
-    query GetFormByID($id: ID!) {
+    query GetFormById($id: ID!) {
   form(id: $id) {
     title
     description
@@ -252,10 +254,11 @@ export const GetFormByIdDocument = new TypedDocumentString(`
       text
       type
       options
+      required
     }
   }
 }
-    `) as unknown as TypedDocumentString<GetFormByIdQuery, GetFormByIdQueryVariables>
+    `)
 export const CreateNewFormDocument = new TypedDocumentString(`
     mutation CreateNewForm($title: String!, $description: String, $questions: [QuestionInput!]) {
   createForm(title: $title, description: $description, questions: $questions) {
@@ -271,7 +274,7 @@ export const CreateNewFormDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<CreateNewFormMutation, CreateNewFormMutationVariables>
+    `)
 export const SubmitFormResponseDocument = new TypedDocumentString(`
     mutation SubmitFormResponse($formId: ID!, $answers: [AnswerInput!]) {
   submitResponse(formId: $formId, answers: $answers) {
@@ -284,7 +287,39 @@ export const SubmitFormResponseDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<
-    SubmitFormResponseMutation,
-    SubmitFormResponseMutationVariables
->
+    `)
+
+const injectedRtkApi = api.injectEndpoints({
+    endpoints: (build) => ({
+        GetAllForms: build.query<GetAllFormsQuery, GetAllFormsQueryVariables | void>({
+            query: (variables) => ({ document: GetAllFormsDocument, variables }),
+        }),
+        GetResponsesByForm: build.query<GetResponsesByFormQuery, GetResponsesByFormQueryVariables>({
+            query: (variables) => ({ document: GetResponsesByFormDocument, variables }),
+        }),
+        GetFormById: build.query<GetFormByIdQuery, GetFormByIdQueryVariables>({
+            query: (variables) => ({ document: GetFormByIdDocument, variables }),
+        }),
+        CreateNewForm: build.mutation<CreateNewFormMutation, CreateNewFormMutationVariables>({
+            query: (variables) => ({ document: CreateNewFormDocument, variables }),
+        }),
+        SubmitFormResponse: build.mutation<
+            SubmitFormResponseMutation,
+            SubmitFormResponseMutationVariables
+        >({
+            query: (variables) => ({ document: SubmitFormResponseDocument, variables }),
+        }),
+    }),
+})
+
+export { injectedRtkApi as api }
+export const {
+    useGetAllFormsQuery,
+    useLazyGetAllFormsQuery,
+    useGetResponsesByFormQuery,
+    useLazyGetResponsesByFormQuery,
+    useGetFormByIdQuery,
+    useLazyGetFormByIdQuery,
+    useCreateNewFormMutation,
+    useSubmitFormResponseMutation,
+} = injectedRtkApi
