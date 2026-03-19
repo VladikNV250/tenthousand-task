@@ -19,7 +19,7 @@ const config: CodegenConfig = {
                     add: {
                         content: `
 export interface DocumentTypeDecoration<TResult, TVariables> {
-  __apiType?: (TResult & TVariables) extends never ? never : any;
+  __apiType?: (variables: TVariables) => TResult;
 }
 export class TypedDocumentString<TResult, TVariables> extends String implements DocumentTypeDecoration<TResult, TVariables> {
   __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];

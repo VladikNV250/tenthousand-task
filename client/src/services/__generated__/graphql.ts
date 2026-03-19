@@ -1,7 +1,7 @@
 import { api } from '../baseApi'
 
 export interface DocumentTypeDecoration<TResult, TVariables> {
-    __apiType?: TResult & TVariables extends never ? never : any
+    __apiType?: (variables: TVariables) => TResult
 }
 export class TypedDocumentString<TResult, TVariables>
     extends String
