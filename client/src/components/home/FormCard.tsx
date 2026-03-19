@@ -13,8 +13,9 @@ export const FormCard: FC<FormCardProps> = ({ form }) => {
                 to={`/forms/${form.id}/responses`}
                 className="w-full h-32 bg-[#f0ebf8] flex items-center justify-center p-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#673ab7]"
                 title="View Responses"
+                aria-label="View responses"
             >
-                <FileText size={32} className="text-[#673ab7] opacity-20" />
+                <FileText size={32} className="text-[#673ab7] opacity-20" aria-hidden />
             </Link>
             <div className="p-4 border-t border-gray-200">
                 <h3

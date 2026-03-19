@@ -15,7 +15,7 @@ export const SuccessMessage: FC<Props> = ({ onReset, title = 'Form' }) => {
                 <p className="text-sm text-gray-700 mb-8">Your response has been recorded.</p>
                 <button
                     onClick={onReset}
-                    className="text-sm text-[#673ab7] hover:text-[#5e35b1] hover:underline font-medium cursor-pointer bg-transparent border-none p-0 focus:outline-none"
+                    className="text-sm text-[`#673ab7`] hover:text-[`#5e35b1`] hover:underline font-medium cursor-pointer bg-transparent border-none p-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[`#673ab7`] focus-visible:ring-offset-2"
                 >
                     Submit another response
                 </button>

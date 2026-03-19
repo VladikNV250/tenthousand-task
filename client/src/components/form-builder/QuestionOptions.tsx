@@ -1,4 +1,3 @@
-// Replace line 1 onwards
 import { X } from 'lucide-react'
 import type { FC } from 'react'
 

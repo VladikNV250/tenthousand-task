@@ -36,10 +36,10 @@ const FormFiller: FC = () => {
                 </Link>
             </header>
 
-            <div className="w-full max-w-3xl mx-auto mt-8 px-4 sm:px-6">
-                {isSuccess ? (
-                    <SuccessMessage onReset={handleReset} title={form.title} />
-                ) : (
+            {isSuccess ? (
+                <SuccessMessage onReset={handleReset} title={form.title} />
+            ) : (
+                <div className="w-full max-w-3xl mx-auto mt-8 px-4 sm:px-6">
                     <form onSubmit={(e) => void handleSubmit(e)} className="flex flex-col gap-4">
                         <FormMetaCard title={form.title} description={form.description} />
                         {form.questions.map((question) => (
@@ -59,8 +59,8 @@ const FormFiller: FC = () => {
                             </Button>
                         </div>
                     </form>
-                )}
-            </div>
+                </div>
+            )}
         </main>
     )
 }

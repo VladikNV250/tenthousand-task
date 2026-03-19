@@ -25,6 +25,7 @@ export const Tabs: FC<Props> = ({ tabs, activeTab, onTabChange, className }) => 
             {tabs.map((tab) => (
                 <button
                     key={tab.id}
+                    type="button"
                     className={cn(
                         'py-3 relative cursor-pointer outline-none transition-colors duration-200',
                         activeTab === tab.id

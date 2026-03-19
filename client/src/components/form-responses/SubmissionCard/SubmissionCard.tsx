@@ -19,8 +19,8 @@ export const SubmissionCard: FC<Props> = ({ question, answer }) => {
     }
 
     return (
-        <Card key={question.id} className="w-full flex-col gap-4 p-6">
-            <h4 className="text-base text-gray-800 font-medium break-words mb-4">
+        <Card key={question.id} className="w-full flex flex-col gap-4 p-6">
+            <h4 className="text-base text-gray-800 font-medium wrap-break-word mb-4">
                 {question.text}
             </h4>
             {question.type === QuestionType.Text && <TextAnswer answer={answer} />}
