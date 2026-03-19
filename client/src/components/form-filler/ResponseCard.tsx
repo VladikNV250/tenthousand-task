@@ -13,10 +13,10 @@ interface Props {
 
 export const ResponseCard: FC<Props> = ({ question }) => {
     return (
-        <Card className="border-t-8 border-violet-500 outline outline-gray-200 flex flex-col gap-4 ">
-            <h4 className="text-xl">
+        <Card className="flex flex-col gap-5 p-6 border border-gray-200 shadow-sm rounded-lg focus-within:shadow-md transition-shadow">
+            <h4 className="text-base text-gray-800 font-medium break-words">
                 {question.text}
-                {question.required && <span className="text-red-500">*</span>}
+                {question.required && <span className="text-red-600 ml-1 text-lg">*</span>}
             </h4>
             {(question.type === QuestionType.MultipleChoice ||
                 question.type === QuestionType.Checkboxes) && (
