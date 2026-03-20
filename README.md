@@ -72,6 +72,30 @@ The project is pre-configured to run both the client and server concurrently usi
     - **Front-End (Client):** Open your browser and navigate to [http://localhost:5173](http://localhost:5173)
     - **GraphQL API (Server/Playground):** Available at [http://localhost:4000/](http://localhost:4000/)
 
+### Running in Production
+
+To build the application for a production environment and preview the optimized build locally, follow these steps:
+
+1. **Build the project:**
+   Compile both the client and server code by running:
+
+    ```bash
+    pnpm run build
+    ```
+
+2. **Start the servers:**
+   Open two terminal windows (or use a background manager):
+    - **Terminal 1 (Server):**
+        ```bash
+        pnpm run start:server
+        ```
+    - **Terminal 2 (Client Preview):**
+        ```bash
+        pnpm run start:client
+        ```
+
+    The client preview will usually be available at [http://localhost:4173](http://localhost:4173), and the server will be running normally at [http://localhost:4000](http://localhost:4000).
+
 ### Generating GraphQL Types (Optional)
 
 If you modify the GraphQL schema (`server/src/graphql/schema.graphql`) or client operations (`.graphql` files), you will need to re-generate the TypeScript types and RTK hooks.
