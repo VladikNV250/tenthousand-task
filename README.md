@@ -1,75 +1,84 @@
-# React + TypeScript + Vite
+# Google Forms Lite Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simplified clone of Google Forms, built as a monorepo using `pnpm` workspaces. It features a React-based front-end and a Node.js/GraphQL back-end.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Form Creation:** Create new forms with various question types (Text, Multiple Choice, Checkboxes, Date).
+- **Form Filling:** View and submit responses to existing forms.
+- **Responses View:** View all submitted responses for a specific form.
+- **Data Persistence:** In-memory data store through a simple GraphQL server.
 
-## React Compiler
+## Technologies Used
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Front-End (`client`)
 
-Note: This will impact Vite dev & build performances.
+- [React](https://react.dev/) (via [React Router v7](https://reactrouter.com/))
+- TypeScript
+- [Redux Toolkit](https://redux-toolkit.js.org/) & RTK Query for state management and data fetching
+- [Tailwind CSS v4](https://tailwindcss.com/) for styling
+- GraphQL Codegen for fully typed API hooks
+- [Vite](https://vitejs.dev/)
 
-## Expanding the ESLint configuration
+### Back-End (`server`)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
+- GraphQL
+- In-memory JS array and maps data storage
 
-```js
-export default defineConfig([
-    globalIgnores(['dist']),
-    {
-        files: ['**/*.{ts,tsx}'],
-        extends: [
-            // Other configs...
+---
 
-            // Remove tseslint.configs.recommended and replace with this
-            tseslint.configs.recommendedTypeChecked,
-            // Alternatively, use this for stricter rules
-            tseslint.configs.strictTypeChecked,
-            // Optionally, add this for stylistic rules
-            tseslint.configs.stylisticTypeChecked,
+## Getting Started
 
-            // Other configs...
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: ['./tsconfig.node.json', './tsconfig.app.json'],
-                tsconfigRootDir: import.meta.dirname,
-            },
-            // other options...
-        },
-    },
-])
-```
+Follow these instructions to set up and run the project locally.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prerequisites
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Ensure you have the following installed on your machine:
 
-export default defineConfig([
-    globalIgnores(['dist']),
-    {
-        files: ['**/*.{ts,tsx}'],
-        extends: [
-            // Other configs...
-            // Enable lint rules for React
-            reactX.configs['recommended-typescript'],
-            // Enable lint rules for React DOM
-            reactDom.configs.recommended,
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: ['./tsconfig.node.json', './tsconfig.app.json'],
-                tsconfigRootDir: import.meta.dirname,
-            },
-            // other options...
-        },
-    },
-])
+- **Node.js** (v20+ recommended)
+- **pnpm** (v9+ recommended)
+
+> Note: The project specifies `pnpm` for managing workspace dependencies. If you don't have it installed, you can enable it via corepack: `corepack enable pnpm` or install it globally `npm install -g pnpm`.
+
+### Installation
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone <repository-url>
+    cd tenthousand-task
+    ```
+
+2. **Install all dependencies:**
+   From the root of the project, run:
+    ```bash
+    pnpm install
+    ```
+    This will install dependencies for both the `client` and `server` packages simultaneously.
+
+### Running the Project Locally
+
+The project is pre-configured to run both the client and server concurrently using a single command from the root directory.
+
+1. **Start the development servers:**
+
+    ```bash
+    pnpm run dev
+    ```
+
+2. **Access the applications:**
+    - **Front-End (Client):** Open your browser and navigate to [http://localhost:5173](http://localhost:5173)
+    - **GraphQL API (Server/Playground):** Available at [http://localhost:4000/](http://localhost:4000/)
+
+### Generating GraphQL Types (Optional)
+
+If you modify the GraphQL schema (`server/src/graphql/schema.graphql`) or client operations (`.graphql` files), you will need to re-generate the TypeScript types and RTK hooks.
+
+To run codegen for both packages:
+
+```bash
+pnpm --filter client run codegen
+pnpm --filter server run codegen
 ```
