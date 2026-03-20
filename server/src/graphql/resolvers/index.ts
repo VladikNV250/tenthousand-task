@@ -42,7 +42,7 @@ export const resolvers: Resolvers = {
             }
 
             const questionsWithIds = inputQuestions.map((q) => ({
-                id: randomUUID(),
+                id: q.id ?? randomUUID(),
                 text: q.text,
                 type: q.type,
                 options: q.options || [],
