@@ -1,9 +1,19 @@
 import './index.css'
 
 import { Provider } from 'react-redux'
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
+import { Links, Meta, type MetaFunction, Outlet, Scripts, ScrollRestoration } from 'react-router'
+
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 import { store } from './store/store'
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const meta: MetaFunction = () => {
+    return [
+        { title: 'Ten Thousand Forms' },
+        { name: 'description', content: 'A simple Google Forms clone.' },
+    ]
+}
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -32,5 +42,5 @@ const Root = () => (
 export default Root
 
 export const HydrateFallback = () => {
-    return <p>Loading...</p>
+    return <LoadingSpinner className="min-h-screen" />
 }

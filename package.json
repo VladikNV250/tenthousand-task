@@ -9,6 +9,11 @@
         "dev:client": "pnpm --filter client run dev",
         "dev:server": "pnpm --filter server run dev",
         "dev": "pnpm -r --parallel run dev",
+        "build:client": "pnpm --filter client run build",
+        "build:server": "pnpm --filter server run build",
+        "build": "pnpm -r run build",
+        "start:client": "pnpm --filter client run preview",
+        "start:server": "pnpm --filter server run start",
         "format": "prettier --write .",
         "prepare": "husky"
     },
