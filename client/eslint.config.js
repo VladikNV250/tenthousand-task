@@ -12,16 +12,11 @@ import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
     {
-        ignores: [
-            'dist/**',
-            '.react-router/**',
-            '**/__generated__/**',
-            '**/*.test.ts',
-            '**/*.test.tsx',
-        ],
+        ignores: ['dist/**', '.react-router/**', '**/__generated__/**'],
     },
     {
         files: ['**/*.{ts,tsx}'],
+        ignores: ['**/*.test.{ts,tsx}'],
         extends: [
             js.configs.recommended,
             // Type-checked rules: catches floating promises, misused promises, etc.
@@ -83,6 +78,29 @@ export default defineConfig([
             '@typescript-eslint/consistent-type-imports': ['warn', { prefer: 'type-imports' }],
             '@typescript-eslint/no-floating-promises': 'error',
             '@typescript-eslint/no-misused-promises': 'error',
+        },
+    },
+    {
+        // Lighter config for test files - skip type-checking but keep other rules
+        files: ['**/*.test.{ts,tsx}'],
+        extends: [
+            js.configs.recommended,
+            tseslint.configs.recommended, // non-type-checked version
+            prettierConfig,
+        ],
+        plugins: {
+            'simple-import-sort': simpleImportSort,
+            prettier: prettierPlugin,
+        },
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: globals.browser,
+        },
+        rules: {
+            'prettier/prettier': 'warn',
+            'simple-import-sort/imports': 'warn',
+            'simple-import-sort/exports': 'warn',
+            '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
         },
     },
 ])
