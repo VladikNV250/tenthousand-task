@@ -1,69 +1,23 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 
-const books = [
-    {
-        title: 'The Awakening',
-        author: 'Kate Chopin',
-    },
-    {
-        title: 'City of Glass',
-        author: 'Paul Auster',
-    },
-]
+import { readFileSync } from 'node:fs'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { resolvers } from './graphql/resolvers/index.js'
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = `#graphql
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
+const typeDefs = readFileSync(join(__dirname, 'graphql/schema.graphql'), 'utf-8')
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
-
-  type Mutation {
-    addBook(title: String!, author: String!): Book
-  }
-`
-
-// Resolvers define how to fetch the types defined in your schema.
-// This resolver retrieves books from the "books" array above.
-const resolvers = {
-    Query: {
-        books: () => books,
-    },
-    Mutation: {
-        addBook: (_parent: never, args: { title: string; author: string }) => {
-            const newBook = { title: args.title, author: args.author }
-            books.push(newBook)
-            return newBook
-        },
-    },
-}
-
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
 const server = new ApolloServer({
     typeDefs,
     resolvers,
 })
 
-// Passing an ApolloServer instance to the `startStandaloneServer` function:
-//  1. creates an Express app
-//  2. installs your ApolloServer instance as middleware
-//  3. prepares your app to handle incoming requests
 const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
 })
 
-console.log(`🚀  Server ready at: ${url}`)
+console.log(`Server ready at: ${url}`)

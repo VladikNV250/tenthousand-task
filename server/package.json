@@ -7,12 +7,18 @@
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "build": "tsc",
+        "postbuild": "cpx \"src/graphql/**/*.graphql\" dist/graphql",
         "typecheck": "tsc --noEmit",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "codegen": "graphql-codegen --config codegen.ts",
+        "test": "vitest run"
     },
     "devDependencies": {
+        "@graphql-codegen/cli": "^6.2.1",
+        "@graphql-codegen/typescript": "^5.0.9",
+        "@graphql-codegen/typescript-resolvers": "^5.1.7",
         "@types/node": "^25.5.0",
         "@types/ws": "^8.18.1",
+        "cpx": "^1.5.0",
         "tsx": "^4.21.0",
         "typescript": "^5.9.3"
     },

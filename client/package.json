@@ -11,7 +11,8 @@
         "typecheck": "tsc --noEmit",
         "format": "prettier --write \"src/**/*.{ts,tsx}\"",
         "codegen": "graphql-codegen --config codegen.ts",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "test": "vitest run"
     },
     "dependencies": {
         "@apollo/client": "^4.1.6",
@@ -22,16 +23,20 @@
         "@graphql-typed-document-node/core": "^3.2.0",
         "@react-router/node": "^7.13.1",
         "@reduxjs/toolkit": "^2.11.2",
+        "@rtk-query/graphql-request-base-query": "^2.3.2",
         "@tailwindcss/vite": "^4.2.1",
+        "clsx": "^2.1.1",
         "graphql": "^16.13.1",
         "graphql-request": "^6.1.0",
         "graphql-tag": "^2.12.6",
         "isbot": "^5",
+        "lucide-react": "^0.577.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "react-redux": "^9.2.0",
         "react-router": "^7.13.1",
         "rxjs": "^7.8.2",
+        "tailwind-merge": "^3.5.0",
         "tailwindcss": "^4.2.1"
     },
     "devDependencies": {
@@ -52,6 +57,7 @@
         "babel-plugin-react-compiler": "^1.0.0",
         "eslint": "^9.39.4",
         "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-jsx-a11y": "^6.10.2",
         "eslint-plugin-prettier": "^5.5.5",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.0.1",

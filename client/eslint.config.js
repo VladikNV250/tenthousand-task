@@ -7,13 +7,16 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import prettierConfig from 'eslint-config-prettier'
 import prettierPlugin from 'eslint-plugin-prettier'
 import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
-    globalIgnores(['dist', '.react-router', 'src/services/__generated__']),
-
+    {
+        ignores: ['dist/**', '.react-router/**', '**/__generated__/**'],
+    },
     {
         files: ['**/*.{ts,tsx}'],
+        ignores: ['**/*.test.{ts,tsx}'],
         extends: [
             js.configs.recommended,
             // Type-checked rules: catches floating promises, misused promises, etc.
@@ -21,6 +24,7 @@ export default defineConfig([
             tseslint.configs.recommendedTypeChecked,
             reactHooks.configs.flat.recommended,
             reactRefresh.configs.vite,
+            jsxA11y.flatConfigs.recommended,
             // Must be last — disables ESLint rules that conflict with Prettier
             prettierConfig,
         ],
@@ -66,11 +70,37 @@ export default defineConfig([
             'simple-import-sort/imports': 'warn',
             'simple-import-sort/exports': 'warn',
 
+            // --- General ---
+            'no-console': ['warn', { allow: ['warn', 'error'] }],
+
             // --- TypeScript ---
             '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
             '@typescript-eslint/consistent-type-imports': ['warn', { prefer: 'type-imports' }],
             '@typescript-eslint/no-floating-promises': 'error',
             '@typescript-eslint/no-misused-promises': 'error',
+        },
+    },
+    {
+        // Lighter config for test files - skip type-checking but keep other rules
+        files: ['**/*.test.{ts,tsx}'],
+        extends: [
+            js.configs.recommended,
+            tseslint.configs.recommended, // non-type-checked version
+            prettierConfig,
+        ],
+        plugins: {
+            'simple-import-sort': simpleImportSort,
+            prettier: prettierPlugin,
+        },
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: globals.browser,
+        },
+        rules: {
+            'prettier/prettier': 'warn',
+            'simple-import-sort/imports': 'warn',
+            'simple-import-sort/exports': 'warn',
+            '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
         },
     },
 ])
