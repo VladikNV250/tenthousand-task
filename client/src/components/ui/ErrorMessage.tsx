@@ -9,11 +9,8 @@ interface Props {
     className?: string
 }
 
-export const ErrorMessage: FC<Props> = ({
-    title = 'Something went wrong',
-    message = 'Please try again later',
-    className,
-}) => {
+export const ErrorMessage: FC<Props> = ({ title = 'Something went wrong', message, className }) => {
+    const displayMessage = message || 'Please try again later'
     return (
         <div
             className={cn(
@@ -23,7 +20,7 @@ export const ErrorMessage: FC<Props> = ({
         >
             <AlertCircle className="w-10 h-10 mb-2" />
             <h3 className="text-lg font-semibold">{title}</h3>
-            <p className="text-sm text-center text-red-500">{message}</p>
+            <p className="text-sm text-center text-red-500">{displayMessage}</p>
         </div>
     )
 }
