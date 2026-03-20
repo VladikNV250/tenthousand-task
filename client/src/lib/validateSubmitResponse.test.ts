@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
+import { type Form, QuestionType } from '@/services/__generated__/graphql'
+
 import { validateSubmitResponse } from './validateSubmitResponse'
-import { QuestionType, type Form } from '@/services/__generated__/graphql'
 
 export const mockForm: Form = {
     id: 'f1',

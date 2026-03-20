@@ -4,7 +4,7 @@ import { groupAnswersByQuestion } from './groupAnswersByQuestion'
 
 describe('groupAnswersByQuestion', () => {
     it('should group answers by their questionId across all responses', () => {
-        const allResponses: any[] = [
+        const allResponses = [
             {
                 id: 'r1',
                 answers: [{ id: '1', questionId: 'q1', value: ['A'] }],

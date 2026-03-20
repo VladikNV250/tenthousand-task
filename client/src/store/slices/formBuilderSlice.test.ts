@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { QuestionType, type Question } from '@/services/__generated__/graphql'
+import { type Question, QuestionType } from '@/services/__generated__/graphql'
 
 import formBuilderReducer, {
     addQuestion,
