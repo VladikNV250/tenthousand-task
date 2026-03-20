@@ -44,12 +44,7 @@ export const useFormBuilder = () => {
             await createNewForm({
                 title: formData.title,
                 description: formData.description,
-                questions: formData.questions.map((question) => ({
-                    text: question.text,
-                    type: question.type,
-                    required: question.required,
-                    options: question.options,
-                })),
+                questions: formData.questions,
             }).unwrap()
             dispatch(resetForm())
             dispatch(setShowErrors(false))

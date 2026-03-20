@@ -82,6 +82,7 @@ export type Question = {
 }
 
 export type QuestionInput = {
+    id: Scalars['ID']['input']
     options?: InputMaybe<Array<Scalars['String']['input']>>
     required: Scalars['Boolean']['input']
     text: Scalars['String']['input']
