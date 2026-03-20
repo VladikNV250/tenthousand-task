@@ -38,6 +38,10 @@ export const resolvers: Resolvers = {
                     if (q.options.some((opt) => !opt.trim())) {
                         throw new Error('Options cannot be empty strings')
                     }
+                    const normalizedOptions = q.options.map((opt) => opt.trim())
+                    if (new Set(normalizedOptions).size !== normalizedOptions.length) {
+                        throw new Error('Options must be unique')
+                    }
                 }
             }
 
