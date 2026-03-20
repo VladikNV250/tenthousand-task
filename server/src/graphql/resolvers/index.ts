@@ -41,18 +41,10 @@ export const resolvers: Resolvers = {
                 }
             }
 
-            const questionsWithIds = inputQuestions.map((q) => ({
-                id: q.id ?? randomUUID(),
-                text: q.text,
-                type: q.type,
-                options: q.options || [],
-                required: q.required,
-            }))
-
             const newForm = formStore.create({
                 title: args.title,
                 description: args.description ?? null,
-                questions: questionsWithIds,
+                questions: args.questions ?? [],
             })
 
             return newForm
