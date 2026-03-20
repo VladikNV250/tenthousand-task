@@ -46,6 +46,19 @@ describe('GraphQL Resolvers', () => {
                 'Multiple choice and checkboxes must have at least 2 options',
             )
         })
+
+        it('should throw error if options are not unique', () => {
+            const formArgs = {
+                title: 'Test',
+                questions: [
+                    { text: 'Q1', type: 'MULTIPLE_CHOICE', options: ['A', 'A'], required: true },
+                ],
+            }
+            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+            const createForm = (resolvers.Mutation as any).createForm
+
+            expect(() => createForm(null, formArgs)).toThrow('Options must be unique')
+        })
     })
 
     describe('submitResponse', () => {

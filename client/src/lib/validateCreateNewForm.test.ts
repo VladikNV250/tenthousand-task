@@ -68,6 +68,22 @@ describe('validateCreateNewForm', () => {
 
             expect(errors.questions?.['1']).toBe('Options cannot be empty strings')
         })
+
+        it('should require unique options', () => {
+            const questions = [
+                {
+                    id: '1',
+                    text: 'Valid Q',
+                    type: QuestionType.MultipleChoice,
+                    options: ['A', 'A'],
+                    required: false,
+                },
+            ] as Question[]
+
+            const errors = validateCreateNewForm('Title', questions)
+
+            expect(errors.questions?.['1']).toBe('Options must be unique')
+        })
     })
 
     it('should return no errors for a valid form', () => {

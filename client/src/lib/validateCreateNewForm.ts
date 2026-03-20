@@ -28,6 +28,8 @@ export const validateCreateNewForm = (title: string, questions: Question[]): For
                 questionErrors[q.id] = 'Must have at least 2 options'
             } else if (q.options.some((opt) => !opt.trim())) {
                 questionErrors[q.id] = 'Options cannot be empty strings'
+            } else if (new Set(q.options).size !== q.options.length) {
+                questionErrors[q.id] = 'Options must be unique'
             }
         }
     })
