@@ -1,8 +1,12 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { resolvers } from './index.js'
+import { formStore } from '../../store/db.js'
 
 describe('GraphQL Resolvers', () => {
     describe('createForm', () => {
+        beforeEach(() => {
+            formStore.clear()
+        })
         it('should create a form with valid input', () => {
             const formArgs = {
                 title: 'Test Form',
@@ -45,6 +49,9 @@ describe('GraphQL Resolvers', () => {
     })
 
     describe('submitResponse', () => {
+        beforeEach(() => {
+            formStore.clear()
+        })
         it('should throw error if form does not exist', () => {
             const responseArgs = {
                 formId: 'invalid-id',

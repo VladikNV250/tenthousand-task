@@ -38,6 +38,10 @@ class InMemoryStore<T extends Entity> {
     delete(id: string): boolean {
         return this.items.delete(id)
     }
+
+    clear(): void {
+        this.items.clear()
+    }
 }
 
 export const formStore = new InMemoryStore<Form>()
